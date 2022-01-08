@@ -21,7 +21,7 @@ console.log()
 console.log(bobSharedKey.length*4)
 
 
-const message ='Hi Bob I miss you'
+const message ='Hi Bob, where have you been? I miss you...'
 const IV=crypto.randomBytes(16)
 const cipher=crypto.createCipheriv('aes-256-gcm', Buffer.from(aliceSharedKey, 'hex'), IV)
 
@@ -32,13 +32,14 @@ encrypt +=cipher.final('hex')
 const auth_tag=cipher.getAuthTag().toString('hex')
 console.table({
     IV:IV.toString('hex'),
-    encrypt:encrypt,
+    encrypted:encrypt,
     auth_tag:auth_tag
 })
 
 const payload=IV.toString('hex')+encrypt+auth_tag
 
-const payloadBase64=Buffer.from(payload, 'hex').toString('hex')
+// Made a mistake with initial commit
+const payloadBase64=Buffer.from(payload, 'hex').toString('base64')
 console.log(payloadBase64)
 
 
